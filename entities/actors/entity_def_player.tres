@@ -1,7 +1,16 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://bg2mytqq6vwrx"]
 
+[ext_resource type="Script" uid="uid://btnj4fu0wgopv" path="res://entities/components/component_definitions/fighter_component_definition.gd" id="1_3dycu"]
+[ext_resource type="Texture2D" uid="uid://krwx0ejbl0yv" path="res://assets/default_death_texture.tres" id="1_fqfq8"]
 [ext_resource type="Script" uid="uid://btoevla8thw8a" path="res://entities/entity_definition.gd" id="1_ri3ta"]
 [ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="2_ercah"]
+
+[sub_resource type="Resource" id="Resource_g160u"]
+script = ExtResource("1_3dycu")
+max_hp = 30
+power = 5
+defense = 2
+metadata/_custom_type_script = "uid://btnj4fu0wgopv"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ercah"]
 atlas = ExtResource("2_ercah")
@@ -11,4 +20,6 @@ region = Rect2(480, 112, 16, 16)
 script = ExtResource("1_ri3ta")
 name = &"Player"
 texture = SubResource("AtlasTexture_ercah")
+fighter_definition = SubResource("Resource_g160u")
+ai_type = 1
 metadata/_custom_type_script = "uid://btoevla8thw8a"

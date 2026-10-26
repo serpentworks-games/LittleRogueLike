@@ -1,31 +1,166 @@
 [gd_scene format=3 uid="uid://d1m0g4mq64x0y"]
 
 [ext_resource type="Script" uid="uid://b6nkyisewymti" path="res://game/main.gd" id="1_xtpaf"]
-[ext_resource type="Script" uid="uid://ckkeirbfmcs5r" path="res://game/action_handler.gd" id="3_emt18"]
+[ext_resource type="Script" uid="uid://dct2jrchfdg3s" path="res://game/event_handlers/action_handler.gd" id="2_5un7r"]
 [ext_resource type="Script" uid="uid://dav5es27a1dfv" path="res://map/map.gd" id="3_vop5m"]
+[ext_resource type="Script" uid="uid://ckkeirbfmcs5r" path="res://game/event_handlers/main_game_action_handler.gd" id="3_wjctj"]
 [ext_resource type="Script" uid="uid://cmsh2c6s28bdy" path="res://map/field_of_view.gd" id="4_5un7r"]
 [ext_resource type="Script" uid="uid://ma2dd3ad4mt5" path="res://map/dungeon_generator.gd" id="4_vop5m"]
+[ext_resource type="Script" uid="uid://b4ve8rhwkv77u" path="res://game/event_handlers/game_over_action_handler.gd" id="4_xkbyp"]
+[ext_resource type="Script" uid="uid://bdxltjr0ttusr" path="res://game/event_handlers/history_viewer_action_handler.gd" id="5_ioaqv"]
+[ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="8_itumj"]
+[ext_resource type="Script" uid="uid://ba8wc3rqp7l68" path="res://ui/hp_display.gd" id="9_dp3pf"]
+[ext_resource type="Script" uid="uid://bhru7euy3j1f3" path="res://ui/mouseover_checker.gd" id="9_li27q"]
+[ext_resource type="FontFile" uid="uid://dw583iwku7s88" path="res://assets/Kenney Pixel.ttf" id="10_ioaqv"]
+[ext_resource type="Script" uid="uid://ckpq3ch3avcfd" path="res://ui/message_log.gd" id="11_dp3pf"]
 
-[node name="Main" type="Node2D" unique_id=427051084]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkghw"]
+atlas = ExtResource("8_itumj")
+region = Rect2(768, 336, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yaloq"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_kkghw")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbdyw"]
+bg_color = Color(0.49803922, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkghw"]
+bg_color = Color(0, 0.49803922, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kp1lh"]
+font = ExtResource("10_ioaqv")
+font_color = Color(0, 0, 0, 1)
+outline_size = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_yaloq"]
+font = ExtResource("10_ioaqv")
+
+[node name="UIRoot" type="Control" unique_id=129354542]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1460532962]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=1862499656]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer" unique_id=1573769381]
+disable_3d = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 536)
+
+[node name="Main" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport" unique_id=427051084]
 script = ExtResource("1_xtpaf")
 
-[node name="ActionHandler" type="Node" parent="." unique_id=45991267]
-script = ExtResource("3_emt18")
+[node name="ActionHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main" unique_id=45991267]
+script = ExtResource("2_5un7r")
 
-[node name="Map" type="Node2D" parent="." unique_id=1193649992]
+[node name="MainGameActionHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/ActionHandler" unique_id=546947035]
+script = ExtResource("3_wjctj")
+
+[node name="GameOverActionHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/ActionHandler" unique_id=961348064]
+script = ExtResource("4_xkbyp")
+
+[node name="HistoryViewerActionHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/ActionHandler" unique_id=533907491]
+script = ExtResource("5_ioaqv")
+messages_panel_path = NodePath("../../../../../InfoBar/MessagesPanel")
+message_log_path = NodePath("../../../../../InfoBar/MessagesPanel/MessageLog")
+
+[node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Main" unique_id=1193649992]
 script = ExtResource("3_vop5m")
 fov_radius = 10
 
-[node name="DungeonGenerator" type="Node" parent="Map" unique_id=1520902376]
+[node name="DungeonGenerator" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/Map" unique_id=1520902376]
 script = ExtResource("4_vop5m")
 metadata/_custom_type_script = "uid://ma2dd3ad4mt5"
 
-[node name="FieldOfView" type="Node" parent="Map" unique_id=627253485]
+[node name="FieldOfView" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/Map" unique_id=627253485]
 script = ExtResource("4_5un7r")
 
-[node name="Tiles" type="Node2D" parent="Map" unique_id=1785389110]
+[node name="Tiles" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/Map" unique_id=1785389110]
 
-[node name="Entities" type="Node2D" parent="Map" unique_id=1312538858]
+[node name="Entities" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/Map" unique_id=1312538858]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=697394041]
+[node name="MouseoverChecker" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/Map" unique_id=1746438907]
+script = ExtResource("9_li27q")
+
+[node name="Camera2D" type="Camera2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Main" unique_id=697394041]
 zoom = Vector2(2, 2)
+
+[node name="InfoBar" type="HBoxContainer" parent="VBoxContainer" unique_id=1213654467]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="StatsPanel" type="PanelContainer" parent="VBoxContainer/InfoBar" unique_id=442579840]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_yaloq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InfoBar/StatsPanel" unique_id=1459377500]
+layout_mode = 2
+
+[node name="HPDisplay" type="MarginContainer" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer" unique_id=858501934]
+layout_mode = 2
+script = ExtResource("9_dp3pf")
+
+[node name="HPBar" type="ProgressBar" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" unique_id=1324304430]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bbdyw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kkghw")
+step = 1.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" unique_id=1978390119]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_kp1lh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MouseoverLabel" type="Label" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer" unique_id=1680005220]
+layout_mode = 2
+size_flags_vertical = 10
+label_settings = SubResource("LabelSettings_yaloq")
+
+[node name="MessagesPanel" type="PanelContainer" parent="VBoxContainer/InfoBar" unique_id=1644980704]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yaloq")
+
+[node name="MessageLog" type="ScrollContainer" parent="VBoxContainer/InfoBar/MessagesPanel" unique_id=1273794573]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("11_dp3pf")
+
+[node name="MessageList" type="VBoxContainer" parent="VBoxContainer/InfoBar/MessagesPanel/MessageLog" unique_id=794573423]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Main" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" method="setup_display"]
+[connection signal="entities_focused" from="VBoxContainer/SubViewportContainer/SubViewport/Main/Map/MouseoverChecker" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]

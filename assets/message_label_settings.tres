@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://qu71jj6v03pc"]
+
+[ext_resource type="FontFile" uid="uid://dw583iwku7s88" path="res://assets/Kenney Pixel.ttf" id="1_ma4yf"]
+
+[resource]
+font = ExtResource("1_ma4yf")

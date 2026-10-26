@@ -1,7 +1,16 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://ct55ikagiqljm"]
 
+[ext_resource type="Script" uid="uid://btnj4fu0wgopv" path="res://entities/components/component_definitions/fighter_component_definition.gd" id="1_cyd06"]
+[ext_resource type="Texture2D" uid="uid://krwx0ejbl0yv" path="res://assets/default_death_texture.tres" id="1_g160u"]
 [ext_resource type="Script" uid="uid://btoevla8thw8a" path="res://entities/entity_definition.gd" id="1_hn0w3"]
 [ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="2_qlewx"]
+
+[sub_resource type="Resource" id="Resource_d3uad"]
+script = ExtResource("1_cyd06")
+max_hp = 16
+power = 4
+defense = 1
+metadata/_custom_type_script = "uid://btnj4fu0wgopv"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlewx"]
 atlas = ExtResource("2_qlewx")
@@ -12,4 +21,6 @@ script = ExtResource("1_hn0w3")
 name = &"Human"
 texture = SubResource("AtlasTexture_qlewx")
 color = Color(0, 0.49803922, 0, 1)
+fighter_definition = SubResource("Resource_d3uad")
+ai_type = 1
 metadata/_custom_type_script = "uid://btoevla8thw8a"

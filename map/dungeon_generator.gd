@@ -24,7 +24,7 @@ func _ready() -> void:
 	_rng.randomize()
 	
 func generate_dungeon(player: Entity) -> MapData:
-	var dungeon := MapData.new(map_width, map_height)
+	var dungeon := MapData.new(map_width, map_height, player)
 	dungeon.entities.append(player)
 	
 	var rooms: Array[Rect2i] = []
@@ -50,6 +50,7 @@ func generate_dungeon(player: Entity) -> MapData:
 		
 		if rooms.is_empty():
 			player.grid_position = new_room.get_center()
+			player.map_data = dungeon
 		else:
 			tunnel_between(dungeon, rooms.back().get_center(), new_room.get_center())
 		
@@ -57,6 +58,7 @@ func generate_dungeon(player: Entity) -> MapData:
 		
 		rooms.append(new_room)
 	
+	dungeon.setup_pathfinding()
 	return dungeon
 	
 func carve_tile(map_data: MapData, x: int, y: int) -> void:
@@ -111,7 +113,7 @@ func place_entities(map_data: MapData, room: Rect2i) -> void:
 		if can_place:
 			var new_entity: Entity
 			if _rng.randf() < 0.8:
-				new_entity = Entity.new(new_entity_pos, ENTITY_TYPES.dog)
+				new_entity = Entity.new(map_data, new_entity_pos, ENTITY_TYPES.dog)
 			else:
-				new_entity = Entity.new(new_entity_pos, ENTITY_TYPES.human)
+				new_entity = Entity.new(map_data, new_entity_pos, ENTITY_TYPES.human)
 			map_data.entities.append(new_entity)

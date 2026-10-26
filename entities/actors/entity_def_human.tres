@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://ct55ikagiqljm"]
+
+[ext_resource type="Script" uid="uid://btoevla8thw8a" path="res://entities/entity_definition.gd" id="1_hn0w3"]
+[ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="2_qlewx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlewx"]
+atlas = ExtResource("2_qlewx")
+region = Rect2(400, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_hn0w3")
+name = &"Human"
+texture = SubResource("AtlasTexture_qlewx")
+color = Color(0, 0.49803922, 0, 1)
+metadata/_custom_type_script = "uid://btoevla8thw8a"

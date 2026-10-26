@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d1m0g4mq64x0y"]
+
+[ext_resource type="Script" uid="uid://b6nkyisewymti" path="res://game/main.gd" id="1_xtpaf"]
+[ext_resource type="Script" uid="uid://ckkeirbfmcs5r" path="res://game/action_handler.gd" id="3_emt18"]
+[ext_resource type="Script" uid="uid://dav5es27a1dfv" path="res://map/map.gd" id="3_vop5m"]
+[ext_resource type="Script" uid="uid://ma2dd3ad4mt5" path="res://map/dungeon_generator.gd" id="4_vop5m"]
+
+[node name="Main" type="Node2D" unique_id=427051084]
+script = ExtResource("1_xtpaf")
+
+[node name="ActionHandler" type="Node" parent="." unique_id=45991267]
+script = ExtResource("3_emt18")
+
+[node name="Entities" type="Node2D" parent="." unique_id=1312538858]
+
+[node name="Map" type="Node2D" parent="." unique_id=1193649992]
+script = ExtResource("3_vop5m")
+
+[node name="DungeonGenerator" type="Node" parent="." unique_id=1501624484]
+script = ExtResource("4_vop5m")

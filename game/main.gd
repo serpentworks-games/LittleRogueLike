@@ -23,12 +23,13 @@ func _ready() -> void:
 	).call_deferred()
 
 func _physics_process(_delta: float) -> void:
-	var action: Action = action_handler.get_action(player)
+	var action: Action = await action_handler.get_action(player)
+	
 	if action:
 		var prev_player_pos: Vector2i = player.grid_position
-		action.perform_action()
-		handle_enemy_turns()
-		map.update_fov(player.grid_position)
+		if action.perform_action():
+			handle_enemy_turns()
+			map.update_fov(player.grid_position)
 		
 func get_map_data() -> MapData:
 	return map.map_data

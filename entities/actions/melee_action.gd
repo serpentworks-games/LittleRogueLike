@@ -1,13 +1,15 @@
 class_name MeleeAction
 extends DirectionalAction
 
-func perform_action() -> void:
+func perform_action() -> bool:
 	var target: Entity = get_target_actor()
-	if not target: return
+	if not target:
+		if entity == get_map_data().player:
+			MessageLog.send_message("Nothing to attack", GameColors.IMPOSSIBLE)
+		return false
 	
 	var dmg: int = entity.fighter_component.power - target.fighter_component.defense
 	var atk_color: Color
-	
 	if entity == get_map_data().player:
 		atk_color = GameColors.PLAYER_ATTACK
 	else:
@@ -22,3 +24,4 @@ func perform_action() -> void:
 	else:
 		atk_description += " but does no damage."
 		MessageLog.send_message(atk_description, atk_color)
+	return true

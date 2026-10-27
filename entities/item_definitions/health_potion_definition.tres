@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://dd1khg3ce56c8"]
+
+[ext_resource type="Script" uid="uid://ccgda4ceilwv0" path="res://entities/components/component_definitions/healing_consumable_component_definition.gd" id="1_xoaxe"]
+[ext_resource type="Script" uid="uid://btoevla8thw8a" path="res://entities/entity_definition.gd" id="2_dw4y4"]
+[ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="3_fcm2q"]
+
+[sub_resource type="Resource" id="Resource_j5mhi"]
+script = ExtResource("1_xoaxe")
+healing_amount = 4
+metadata/_custom_type_script = "uid://ccgda4ceilwv0"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmre7"]
+atlas = ExtResource("3_fcm2q")
+region = Rect2(672, 176, 16, 16)
+
+[resource]
+script = ExtResource("2_dw4y4")
+name = &"Health Potion"
+texture = SubResource("AtlasTexture_qmre7")
+color = Color(0.49803922, 0, 1, 1)
+entity_type = 1
+can_block_movement = false
+consumable_definition = SubResource("Resource_j5mhi")
+metadata/_custom_type_script = "uid://btoevla8thw8a"

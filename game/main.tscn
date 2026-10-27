@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ma2dd3ad4mt5" path="res://map/dungeon_generator.gd" id="4_vop5m"]
 [ext_resource type="Script" uid="uid://b4ve8rhwkv77u" path="res://game/event_handlers/game_over_action_handler.gd" id="4_xkbyp"]
 [ext_resource type="Script" uid="uid://bdxltjr0ttusr" path="res://game/event_handlers/history_viewer_action_handler.gd" id="5_ioaqv"]
+[ext_resource type="Script" uid="uid://d3liyqx8j3wln" path="res://game/event_handlers/base_action_handler.gd" id="6_g6fv7"]
 [ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="8_itumj"]
 [ext_resource type="Script" uid="uid://ba8wc3rqp7l68" path="res://ui/hp_display.gd" id="9_dp3pf"]
 [ext_resource type="Script" uid="uid://bhru7euy3j1f3" path="res://ui/mouseover_checker.gd" id="9_li27q"]
@@ -67,8 +68,10 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer" unique_id=1573769381]
 disable_3d = true
+handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(1152, 536)
+render_target_update_mode = 4
 
 [node name="Main" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport" unique_id=427051084]
 script = ExtResource("1_xtpaf")
@@ -86,6 +89,9 @@ script = ExtResource("4_xkbyp")
 script = ExtResource("5_ioaqv")
 messages_panel_path = NodePath("../../../../../InfoBar/MessagesPanel")
 message_log_path = NodePath("../../../../../InfoBar/MessagesPanel/MessageLog")
+
+[node name="InventoryActionHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Main/ActionHandler" unique_id=1744287884]
+script = ExtResource("6_g6fv7")
 
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Main" unique_id=1193649992]
 script = ExtResource("3_vop5m")
@@ -128,9 +134,11 @@ script = ExtResource("9_dp3pf")
 [node name="HPBar" type="ProgressBar" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" unique_id=1324304430]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_bbdyw")
 theme_override_styles/fill = SubResource("StyleBoxFlat_kkghw")
 step = 1.0
+value = 50.0
 show_percentage = false
 
 [node name="HPLabel" type="Label" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" unique_id=1978390119]

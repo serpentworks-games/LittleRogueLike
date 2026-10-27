@@ -1,8 +1,8 @@
 class_name BumpAction
 extends DirectionalAction
 
-func perform_action() -> void:
+func perform_action() -> bool:
 	if get_target_actor():
-		MeleeAction.new(entity, offset.x, offset.y).perform_action()
+		return MeleeAction.new(entity, offset.x, offset.y).perform_action()
 	else:
-		MovementAction.new(entity, offset.x, offset.y).perform_action()
+		return MovementAction.new(entity, offset.x, offset.y).perform_action()

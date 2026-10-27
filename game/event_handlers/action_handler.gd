@@ -1,14 +1,15 @@
 class_name ActionHandler
 extends Node
 
-enum ActionHandlers { MAIN_GAME, GAME_OVER, HISTORY_VIEWER }
+enum ActionHandlers { MAIN_GAME, GAME_OVER, HISTORY_VIEWER, INVENTORY }
 
 @export var starting_action_handler: ActionHandlers
 
 @onready var action_handler_nodes := {
 	ActionHandlers.MAIN_GAME: $MainGameActionHandler,
 	ActionHandlers.GAME_OVER: $GameOverActionHandler,
-	ActionHandlers.HISTORY_VIEWER: $HistoryViewerActionHandler
+	ActionHandlers.HISTORY_VIEWER: $HistoryViewerActionHandler,
+	ActionHandlers.INVENTORY: $InventoryActionHandler
 }
 
 var current_action_handler: BaseActionHandler

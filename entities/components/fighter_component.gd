@@ -23,6 +23,23 @@ func _init(definition: FighterComponentDefinition) -> void:
 	death_texture = definition.death_texture
 	death_color = definition.death_color
 	
+func heal(amount: int) -> int:
+	if hp == max_hp:
+		return 0
+	
+	var new_value: int = hp + amount
+	
+	if new_value > max_hp:
+		new_value = max_hp
+	
+	var amount_recovered: int = new_value - hp
+	hp = new_value
+	
+	return amount_recovered
+
+func take_damage(amount: int) -> void:
+	hp -= amount
+
 func handle_death() -> void:
 	var death_msg: String
 	var death_msg_color: Color

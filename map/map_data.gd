@@ -1,6 +1,8 @@
 class_name MapData
 extends RefCounted
 
+signal entity_placed(entity)
+
 const TILE_TYPES = {
 	"floor" = preload("res://assets/tile_definitions/tile_def_floor.tres"),
 	"wall" = preload("res://assets/tile_definitions/tile_def_wall.tres")
@@ -90,3 +92,10 @@ func setup_pathfinding() -> void:
 	for entity in entities:
 		if entity.can_block_movement():
 			register_blocking_entity(entity)
+			
+func get_items() -> Array[Entity]:
+	var items: Array[Entity] = []
+	for entity in entities:
+		if entity.consumable_component != null:
+			items.append(entity)
+	return items

@@ -10,14 +10,16 @@ extends Node
 @export var min_room_size: int = 6
 @export var max_room_size: int = 10
 
-@export_category("Monster RNG")
-@export var max_monsters_per_room = 2
+@export_category("Entity RNG")
+@export var max_monsters_per_room: int = 2
+@export var max_items_per_room: int = 2
 
 var _rng := RandomNumberGenerator.new()
 
 const ENTITY_TYPES = {
 	"dog" = preload("res://entities/actors/entity_def_dog.tres"),
-	"human" = preload("res://entities/actors/entity_def_human.tres")
+	"human" = preload("res://entities/actors/entity_def_human.tres"),
+	"health_potion" = preload("res://entities/item_definitions/health_potion_definition.tres")
 }
 
 func _ready() -> void:
@@ -98,6 +100,7 @@ func tunnel_between(map_data: MapData, start: Vector2i, end: Vector2i) -> void:
 
 func place_entities(map_data: MapData, room: Rect2i) -> void:
 	var num_of_monsters: int = _rng.randi_range(0, max_monsters_per_room)
+	var number_of_items: int = _rng.randi_range(0, max_items_per_room)
 	
 	for _i in num_of_monsters:
 		var x: int = _rng.randi_range(room.position.x + 1, room.end.x - 1)
@@ -116,4 +119,19 @@ func place_entities(map_data: MapData, room: Rect2i) -> void:
 				new_entity = Entity.new(map_data, new_entity_pos, ENTITY_TYPES.dog)
 			else:
 				new_entity = Entity.new(map_data, new_entity_pos, ENTITY_TYPES.human)
+			map_data.entities.append(new_entity)
+	
+	for _i in number_of_items:
+		var x: int = _rng.randi_range(room.position.x + 1, room.end.x - 1)
+		var y: int = _rng.randi_range(room.position.y + 1, room.end.y - 1)
+		var new_entity_pos := Vector2i(x, y)
+		
+		var can_place = true
+		for entity in map_data.entities:
+			if entity.grid_position == new_entity_pos:
+				can_place = false
+				break
+		
+		if can_place:
+			var new_entity: Entity = Entity.new(map_data, new_entity_pos, ENTITY_TYPES.health_potion)
 			map_data.entities.append(new_entity)

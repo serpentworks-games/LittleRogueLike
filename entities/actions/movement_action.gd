@@ -1,14 +1,15 @@
 class_name MovementAction
 extends DirectionalAction
 
-func perform_action() -> void:	
+func perform_action() -> bool:
+	var destination: Vector2i = get_destination()
 	var map_data: MapData = get_map_data()
-	var destination_tile: Tile = map_data.get_tile(get_destination())
+	var destination_tile: Tile = map_data.get_tile(destination)
 	
 	if not destination_tile or not destination_tile.is_walkable():
-		return
+		if entity == get_map_data().player:
+			MessageLog.send_message("That way is blocked.", GameColors.IMPOSSIBLE)
+		return false
 		
-	if get_blocking_entity_at_destination():
-		return
-	
 	entity.move_entity(offset)
+	return true

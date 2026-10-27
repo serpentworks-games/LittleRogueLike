@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cm88erl0phghb"]
+
+[ext_resource type="Texture2D" uid="uid://bl5bs8aj8wbqf" path="res://assets/monochrome-transparent_packed.png" id="1_o13uu"]
+[ext_resource type="Script" uid="uid://6wrjlxtpln4b" path="res://ui/inventory_menu.gd" id="1_st1da"]
+[ext_resource type="FontFile" uid="uid://dw583iwku7s88" path="res://assets/Kenney Pixel.ttf" id="2_st1da"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkghw"]
+atlas = ExtResource("1_o13uu")
+region = Rect2(768, 336, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xink8"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_kkghw")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_xna76"]
+font = ExtResource("2_st1da")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wu2rp"]
+color = Color(1, 1, 1, 1)
+
+[node name="InventoryMenu" type="CanvasLayer" unique_id=1140467897]
+script = ExtResource("1_st1da")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1527292582]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=631944545]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xink8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=158597257]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=2065975275]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xna76")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=742010405]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_wu2rp")
+
+[node name="InventoryList" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=440328367]
+unique_name_in_owner = true
+layout_mode = 2
